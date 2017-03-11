@@ -9,7 +9,7 @@ public interface RdrSolrBoost {
 	
 	String getName();
 	void setName(String name);
-	
+	/*field*/
 	Field getField();
 	void setField (Field field);
 	
