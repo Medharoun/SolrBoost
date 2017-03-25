@@ -38,7 +38,7 @@ public class StAbstractSolrSearchServiceExtensionHandler extends AbstractSolrSea
 		
 		boosts.forEach(boost -> {
 			
-		});
+		}); 
 		
 //		List<RdrSolrBoost> boosts = dao.getAllBoosts();
 //			String defaultQuery = query.getQuery();
