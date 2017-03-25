@@ -1,4 +1,4 @@
-package com.mycompany.core.solr.bost.domain;
+package com.mycompany.core.solr.boost.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +8,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.broadleafcommerce.common.presentation.AdminPresentation;
+import org.broadleafcommerce.common.presentation.AdminPresentationClass;
+import org.broadleafcommerce.common.presentation.AdminPresentationToOneLookup;
+import org.broadleafcommerce.common.presentation.PopulateToOneFieldsEnum;
+import org.broadleafcommerce.common.presentation.client.VisibilityEnum;
+import org.broadleafcommerce.core.offer.domain.OfferAdminPresentation.FieldOrder;
+import org.broadleafcommerce.core.offer.domain.OfferAdminPresentation.GroupName;
 import org.broadleafcommerce.core.search.domain.Field;
 import org.broadleafcommerce.core.search.domain.FieldImpl;
 import org.hibernate.annotations.GenericGenerator;
@@ -15,8 +22,10 @@ import org.hibernate.annotations.Parameter;
 
 @Entity
 @Table(name="SOLR_BOOST")
-public class RdrSolrBoostImpl implements RdrSolrBoost{
+@AdminPresentationClass(populateToOneFields = PopulateToOneFieldsEnum.TRUE, friendlyName = "solrBoostBase")
+public class RdrSolrBoostImpl implements RdrSolrBoost {
 	
+	private static final long serialVersionUID = 1L; 
 	@Id
 	@GeneratedValue(generator="id")
 	@GenericGenerator(
@@ -24,20 +33,26 @@ public class RdrSolrBoostImpl implements RdrSolrBoost{
 			strategy="org.broadleafcommerce.common.persistence.IdOverrideTableGenerator",
 			parameters = {
 					@Parameter(name="segment_value", value="id"),
-					@Parameter(name="entity_name", value="src.java.main.RdrSolrBoostImpl")
+					@Parameter(name="entity_name", value="com.mycompany.core.solr.boost.domain.RdrSolrBoostImpl")
 			}
 		)
+	
 	@Column(name="SOLR_BOOST_ID")
+	@AdminPresentation(friendlyName = "RdrSolrBoostImpl_Id", visibility = VisibilityEnum.HIDDEN_ALL)
 	protected Long id;
 	
 	@Column(name = "NAME")
+	@AdminPresentation(friendlyName = "RdrSolrBoostImpl_Name", group = GroupName.Description, order = FieldOrder.Name, prominent = true, gridOrder = 1)
 	protected String name;
 	
 	@ManyToOne(targetEntity = FieldImpl.class)
 	@JoinColumn(name = "FIELD_ID")
+	@AdminPresentation(friendlyName = "RdrSolrBoostImpl_field", prominent = true, gridOrder = 2)
+	@AdminPresentationToOneLookup()
 	protected Field field;
 	
 	@Column(name = "BOOST_AMOUNT")
+	@AdminPresentation(friendlyName = "OfferImpl_amount", group = GroupName.Description, order = FieldOrder.Name, prominent = true, gridOrder = 1)
 	protected Double boostAmount;
 	
 	

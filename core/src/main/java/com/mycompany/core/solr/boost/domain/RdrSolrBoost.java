@@ -1,8 +1,10 @@
-package com.mycompany.core.solr.bost.domain;
+package com.mycompany.core.solr.boost.domain;
 
-import org.broadleafcommerce.core.search.domain.Field;;
+import java.io.Serializable;
 
-public interface RdrSolrBoost {
+import org.broadleafcommerce.core.search.domain.Field;
+
+public interface RdrSolrBoost extends Serializable {
 	
 	Long getId();
 	void setId(Long id);
@@ -17,5 +19,5 @@ public interface RdrSolrBoost {
 	void setBoostAmount(Double boostAmount);
 	
 	
-	
+		
 }
