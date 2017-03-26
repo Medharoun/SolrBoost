@@ -11,7 +11,7 @@ public interface SolrBoostValues extends Serializable{
 	String getValue();
 	void setValue(String value);
 	
-	Double getBoostAmount();
+	Double getBoostAmount(); 
 	void setBoostAmount(Double boostAmount);
 	
 	RdrSolrBoost getRdrSolrBoost();
