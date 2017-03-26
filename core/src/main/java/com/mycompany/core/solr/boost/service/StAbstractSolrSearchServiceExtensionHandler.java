@@ -17,6 +17,8 @@ import org.springframework.stereotype.Service;
 import com.mycompany.core.solr.boost.dao.SolrBoostDao;
 import com.mycompany.core.solr.boost.domain.RdrSolrBoost;
 
+import net.sf.ehcache.search.expression.Criteria;
+
 @Service("stAbstractSolrSearchServiceExtensionHandler")
 public class StAbstractSolrSearchServiceExtensionHandler extends AbstractSolrSearchServiceExtensionHandler implements SolrSearchServiceExtensionHandler{
 	
@@ -36,9 +38,16 @@ public class StAbstractSolrSearchServiceExtensionHandler extends AbstractSolrSea
 
 		List<RdrSolrBoost> boosts = dao.getAllBoosts();
 		
-		boosts.forEach(boost -> {
-			
-		}); 
+//		boosts.forEach(boost -> {
+//			
+//		}); 
+		
+		
+		
+		query.add("bq", "fr_name_s:hitman^100");
+		
+		
+		
 		
 //		List<RdrSolrBoost> boosts = dao.getAllBoosts();
 //			String defaultQuery = query.getQuery();
