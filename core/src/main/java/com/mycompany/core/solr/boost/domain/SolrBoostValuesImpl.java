@@ -48,6 +48,7 @@ public class SolrBoostValuesImpl implements SolrBoostValues{
 	protected String value;
 	
 	
+	
 	@ManyToOne(targetEntity = RdrSolrBoostImpl.class)
 	@JoinColumn(name = "SOLR_BOOST_ID")
 	@AdminPresentation(friendlyName = "SolrBoostValuesImpl_Type", prominent = true, gridOrder = 2)
