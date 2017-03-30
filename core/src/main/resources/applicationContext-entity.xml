@@ -23,5 +23,9 @@
         
         
         
-        <bean id="com.mycompany.core.solr.bost.domain.RdrSolrBoost" class="com.mycompany.core.solr.bost.domain.RdrSolrBoostImpl" scope="prototype"></bean>        
+        <bean id="com.mycompany.core.solr.bost.domain.RdrSolrBoost" class="com.mycompany.core.solr.bost.domain.RdrSolrBoostImpl" scope="prototype"></bean>
+          <bean id="com.mycompany.core.solr.bost.domain.SolrBoostValues" class="com.mycompany.core.solr.bost.domain.SolrBoostvaluesImpl" scope="prototype"></bean>        
+         
+        <bean id="com.mycompany.core.solr.bost.domain.SolrBoostDetails" class="com.mycompany.core.solr.bost.domain.SolrBoostDetailsImpl" scope="prototype"></bean>        
+                
 </beans>

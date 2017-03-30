@@ -6,8 +6,17 @@
              
     <persistence-unit name="blPU" transaction-type="RESOURCE_LOCAL">
         <non-jta-data-source>jdbc/web</non-jta-data-source>
+        
+        
         <mapping-file>query/solrboost.orm.xml</mapping-file>
          <class>com.mycompany.core.solr.boost.domain.RdrSolrBoostImpl</class>
+         <class>com.mycompany.core.solr.boost.domain.SolrBoostValuesImpl</class>
+         <class>com.mycompany.core.solr.boost.domain.SolrBoostDetailsImpl</class>
+                           
+                           
+         
+         
+         
         <exclude-unlisted-classes/>
     </persistence-unit>
     
