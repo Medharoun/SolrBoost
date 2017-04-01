@@ -26,5 +26,10 @@ public interface RdrSolrBoost extends Serializable {
 	//public List <SolrBoostValues> getValues() ;
 	//public void setValues(List <SolrBoostValues> values ) ;
 	
+//	public List<SolrBoostValues> getValues();
+//	
+//	public void setValues(List<SolrBoostValues> values);
+	
+	
 		
 }

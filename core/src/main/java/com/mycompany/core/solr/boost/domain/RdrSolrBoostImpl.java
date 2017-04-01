@@ -53,7 +53,6 @@ public class RdrSolrBoostImpl implements RdrSolrBoost {
 	
 	@Column(name = "BOOST_AMOUNT")
 	@AdminPresentation(friendlyName = "RdrSolrBoostImpl_amount", group = GroupName.Description, order = FieldOrder.Name, prominent = true, gridOrder = 3)
-
 	protected Double boostAmount;
 	
 	
@@ -61,15 +60,12 @@ public class RdrSolrBoostImpl implements RdrSolrBoost {
 	@AdminPresentation(friendlyName = "RdrSolrBoostImpl_active", group = GroupName.Description, order = FieldOrder.Name, prominent = true, gridOrder = 3)
 	protected boolean isActive;
 	
+
+//	@OneToMany(targetEntity = SolrBoostValuesImpl.class)
+//	@AdminPresentation(friendlyName = "RdrSolrBoostImpl_value", prominent = true, gridOrder = 4)
+//	@AdminPresentationToOneLookup
+//	protected List<SolrBoostValues> values  = new ArrayList<>();
 	
-	public RdrSolrBoostImpl(Long id, String name, Field field, Double boostAmount, boolean isActive) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.field = field;
-		this.boostAmount = boostAmount;
-		this.isActive = isActive;
-	}
 	@Override
 	public Long getId() {
 		// TODO Auto-generated method stub
@@ -126,5 +122,15 @@ public class RdrSolrBoostImpl implements RdrSolrBoost {
 		this.isActive = isActive;
 	}
 	
-	
+
+//	@Override
+//	public List<SolrBoostValues> getValues() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//	@Override
+//	public void setValues(List<SolrBoostValues> values) {
+//		// TODO Auto-generated method stub
+//		
+//	}
 }
