@@ -38,27 +38,27 @@ public class StAbstractSolrSearchServiceExtensionHandler extends AbstractSolrSea
 	@Override
     public ExtensionResultStatusType modifySolrQuery(SolrQuery query, String qualifiedSolrQuery,List<SearchFacetDTO> facets, SearchCriteria searchCriteria, String defaultSort) {
 
-		List<RdrSolrBoost> boosts = dao.getAllBoosts();
-		String q = query.get(CommonParams.Q);
-		q=q.substring(1,q.length()-1);
-		String nq =""; 
+//		List<RdrSolrBoost> boosts = dao.getAllBoosts();
+//		String q = query.get(CommonParams.Q);
+//		q=q.substring(1,q.length()-1);
+//		String nq =""; 
+////		if(!CollectionUtils.isEmpty(boosts)){
+////			
+////			boosts.stream().filter(boost -> boost.isActive()).forEach(boost -> {
+////				if(queryParsed[0] == boost.getField().getAbbreviation()){
+////					q+="^"+boost.getBoostAmount();
+////				}
+////			});
+////		}
 //		if(!CollectionUtils.isEmpty(boosts)){
-//			
-//			boosts.stream().filter(boost -> boost.isActive()).forEach(boost -> {
-//				if(queryParsed[0] == boost.getField().getAbbreviation()){
-//					q+="^"+boost.getBoostAmount();
+//			for (RdrSolrBoost boost : boosts) {
+//				if(boost.isActive()){
+//					nq+=boost.getField().getAbbreviation()+":"+q+"^"+boost.getBoostAmount()+" OR ";
 //				}
-//			});
+//			}
 //		}
-		if(!CollectionUtils.isEmpty(boosts)){
-			for (RdrSolrBoost boost : boosts) {
-				if(boost.isActive()){
-					nq+=boost.getField().getAbbreviation()+":"+q+"^"+boost.getBoostAmount()+" OR ";
-				}
-			}
-		}
-		
-		nq=nq.substring(0, nq.length()-4);
+//		
+//		nq=nq.substring(0, nq.length()-4);
 		
         return ExtensionResultStatusType.HANDLED;
     }
