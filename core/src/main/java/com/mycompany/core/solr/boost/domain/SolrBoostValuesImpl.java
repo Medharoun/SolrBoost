@@ -15,7 +15,6 @@ import org.broadleafcommerce.common.presentation.PopulateToOneFieldsEnum;
 import org.broadleafcommerce.common.presentation.client.VisibilityEnum;
 import org.broadleafcommerce.core.offer.domain.OfferAdminPresentation.FieldOrder;
 import org.broadleafcommerce.core.offer.domain.OfferAdminPresentation.GroupName;
-import org.broadleafcommerce.core.search.domain.FieldImpl;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
