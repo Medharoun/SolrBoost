@@ -52,8 +52,18 @@ public class RdrSolrBoostImpl implements RdrSolrBoost {
 	protected Field field;
 	
 	@Column(name = "BOOST_AMOUNT")
-	@AdminPresentation(friendlyName = "OfferImpl_amount", group = GroupName.Description, order = FieldOrder.Name, prominent = true, gridOrder = 1)
+	@AdminPresentation(friendlyName = "RdrSolrBoostImpl_amount", group = GroupName.Description, order = FieldOrder.Name, prominent = true, gridOrder = 3)
 	protected Double boostAmount;
+	
+	
+	@Column(name = "IS_ACTIVE")
+	@AdminPresentation(friendlyName = "RdrSolrBoostImpl_active", group = GroupName.Description, order = FieldOrder.Name, prominent = true, gridOrder = 3)
+	protected boolean isActive;
+	
+//	@OneToMany(targetEntity = SolrBoostValuesImpl.class)
+//	@AdminPresentation(friendlyName = "RdrSolrBoostImpl_value", prominent = true, gridOrder = 4)
+//	@AdminPresentationToOneLookup
+//	protected List<SolrBoostValues> values  = new ArrayList<>();
 	
 	
 	@Override
@@ -100,4 +110,25 @@ public class RdrSolrBoostImpl implements RdrSolrBoost {
 		this.boostAmount=boostAmount;
 		
 	}
+	@Override
+	public boolean isActive() {
+		// TODO Auto-generated method stub
+		return isActive;
+	}
+	@Override
+	public void setIsActive(boolean isActive) {
+		// TODO Auto-generated method stub
+		this.isActive = isActive;
+	}
+	
+//	@Override
+//	public List<SolrBoostValues> getValues() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//	@Override
+//	public void setValues(List<SolrBoostValues> values) {
+//		// TODO Auto-generated method stub
+//		
+//	}
 }

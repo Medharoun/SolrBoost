@@ -19,5 +19,14 @@ public interface RdrSolrBoost extends Serializable {
 	void setBoostAmount(Double boostAmount);
 	
 	
+	public boolean isActive();
+	
+	public void setIsActive(boolean isActive);
+	
+//	public List<SolrBoostValues> getValues();
+//	
+//	public void setValues(List<SolrBoostValues> values);
+	
+	
 		
 }

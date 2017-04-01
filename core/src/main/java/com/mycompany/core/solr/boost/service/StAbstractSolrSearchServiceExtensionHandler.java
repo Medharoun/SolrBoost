@@ -5,7 +5,9 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.common.params.CommonParams;
 import org.broadleafcommerce.common.extension.ExtensionResultStatusType;
 import org.broadleafcommerce.core.search.domain.SearchCriteria;
 import org.broadleafcommerce.core.search.domain.SearchFacetDTO;
@@ -16,8 +18,6 @@ import org.springframework.stereotype.Service;
 
 import com.mycompany.core.solr.boost.dao.SolrBoostDao;
 import com.mycompany.core.solr.boost.domain.RdrSolrBoost;
-
-import net.sf.ehcache.search.expression.Criteria;
 
 @Service("stAbstractSolrSearchServiceExtensionHandler")
 public class StAbstractSolrSearchServiceExtensionHandler extends AbstractSolrSearchServiceExtensionHandler implements SolrSearchServiceExtensionHandler{
@@ -32,32 +32,34 @@ public class StAbstractSolrSearchServiceExtensionHandler extends AbstractSolrSea
     public void init() {
         extensionManager.registerHandler(this);
     }
-	
+	/**
+	 * query time boost
+	 */
 	@Override
     public ExtensionResultStatusType modifySolrQuery(SolrQuery query, String qualifiedSolrQuery,List<SearchFacetDTO> facets, SearchCriteria searchCriteria, String defaultSort) {
 
 		List<RdrSolrBoost> boosts = dao.getAllBoosts();
-		
-//		boosts.forEach(boost -> {
+		String q = query.get(CommonParams.Q);
+		q=q.substring(1,q.length()-1);
+		String nq =""; 
+//		if(!CollectionUtils.isEmpty(boosts)){
 //			
-//		}); 
-		
-		
-		
-		query.add("bq", "fr_name_s:hitman^100");
-		
-		
-		
-		
-//		List<RdrSolrBoost> boosts = dao.getAllBoosts();
-//			String defaultQuery = query.getQuery();
-//			String newQuery =null;
-//		for (RdrSolrBoost rsb : boosts){
-//			
-//			query.setFilterQueries("bf");
-//			query.addField("\""+rsb.getField().getAbbreviation()+"\""+"^"+rsb.getBoostAmount());
+//			boosts.stream().filter(boost -> boost.isActive()).forEach(boost -> {
+//				if(queryParsed[0] == boost.getField().getAbbreviation()){
+//					q+="^"+boost.getBoostAmount();
+//				}
+//			});
 //		}
-//			query.setQuery(defaultQuery+newQuery);
+		if(!CollectionUtils.isEmpty(boosts)){
+			for (RdrSolrBoost boost : boosts) {
+				if(boost.isActive()){
+					nq+=boost.getField().getAbbreviation()+":"+q+"^"+boost.getBoostAmount()+" OR ";
+				}
+			}
+		}
+		
+		nq=nq.substring(0, nq.length()-4);
+		
         return ExtensionResultStatusType.HANDLED;
     }
 	
