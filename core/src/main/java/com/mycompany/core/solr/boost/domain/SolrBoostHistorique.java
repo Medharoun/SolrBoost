@@ -1,5 +1,7 @@
 package com.mycompany.core.solr.boost.domain;
 
-public interface SolrBoostHistorique {
+import java.io.Serializable;
+
+public interface SolrBoostHistorique extends Serializable{
 
 }

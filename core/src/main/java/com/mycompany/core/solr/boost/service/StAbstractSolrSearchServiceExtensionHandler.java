@@ -1,11 +1,14 @@
 package com.mycompany.core.solr.boost.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
+import org.apache.lucene.queries.function.BoostedQuery;
 import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.common.params.CommonParams;
 import org.broadleafcommerce.common.extension.ExtensionResultStatusType;
 import org.broadleafcommerce.core.search.domain.SearchCriteria;
 import org.broadleafcommerce.core.search.domain.SearchFacetDTO;
@@ -15,6 +18,11 @@ import org.broadleafcommerce.core.search.service.solr.SolrSearchServiceExtension
 import org.springframework.stereotype.Service;
 
 import com.mycompany.core.solr.boost.dao.SolrBoostDao;
+import com.mycompany.core.solr.boost.domain.BoostCategory;
+import com.mycompany.core.solr.boost.domain.BoostProduct;
+import com.mycompany.core.solr.boost.domain.BoostQuery;
+import com.mycompany.core.solr.boost.domain.BoostQueryImpl;
+import com.mycompany.core.solr.boost.domain.SolrBoostFieldValue;
 
 
 @Service("stAbstractSolrSearchServiceExtensionHandler")
@@ -25,6 +33,9 @@ public class StAbstractSolrSearchServiceExtensionHandler extends AbstractSolrSea
 	
     @Resource(name = "blSolrSearchServiceExtensionManager")
     protected SolrSearchServiceExtensionManager extensionManager;
+    
+    @Resource(name = "StBoostProductService")
+    protected StBoostProductService boostProductService;
 
     @PostConstruct
     public void init() {
@@ -37,28 +48,28 @@ public class StAbstractSolrSearchServiceExtensionHandler extends AbstractSolrSea
     public ExtensionResultStatusType modifySolrQuery(SolrQuery query, String qualifiedSolrQuery,List<SearchFacetDTO> facets, SearchCriteria searchCriteria, String defaultSort) {
 
 
-//		List<RdrSolrBoost> boosts = dao.getAllBoosts();
-//		String q = query.get(CommonParams.Q);
-//		q=q.substring(1,q.length()-1);
-//		String nq =""; 
-////		if(!CollectionUtils.isEmpty(boosts)){
-////			
-////			boosts.stream().filter(boost -> boost.isActive()).forEach(boost -> {
-////				if(queryParsed[0] == boost.getField().getAbbreviation()){
-////					q+="^"+boost.getBoostAmount();
-////				}
-////			});
-////		}
-//		if(!CollectionUtils.isEmpty(boosts)){
-//			for (RdrSolrBoost boost : boosts) {
-//				if(boost.isActive()){
-//					nq+=boost.getField().getAbbreviation()+":"+q+"^"+boost.getBoostAmount()+" OR ";
-//				}
-//			}
-//		}
-//		
-//		nq=nq.substring(0, nq.length()-4);
-
+		String q = query.getQuery();
+		 List<Long> result = new ArrayList<>();
+		
+		List<SolrBoostFieldValue> boosts = dao.getAllBoosts();
+	    
+		boosts.forEach(value -> {
+			if (value instanceof BoostProduct){
+				boostProductService.SolrBoostSearchforProduct(result, query, boosts);
+			}else if (value instanceof BoostCategory){
+				
+			}else {
+				
+			}
+		});
+		
+		
+		
+		
+		
+	
+		
+		query.setQuery(q);
 		
         return ExtensionResultStatusType.HANDLED;
     }

@@ -23,9 +23,13 @@
         
         
         
-        <bean id="com.mycompany.core.solr.bost.domain.RdrSolrBoost" class="com.mycompany.core.solr.bost.domain.RdrSolrBoostImpl" scope="prototype"></bean>
-          <bean id="com.mycompany.core.solr.bost.domain.SolrBoostValues" class="com.mycompany.core.solr.bost.domain.SolrBoostvaluesImpl" scope="prototype"></bean>        
+        <bean id="com.mycompany.core.solr.boost.domain.RdrSolrBoost" class="com.mycompany.core.solr.boost.domain.RdrSolrBoostImpl" scope="prototype"></bean>
+        <bean id="com.mycompany.core.solr.boost.domain.SolrBoostValues" class="com.mycompany.core.solr.boost.domain.SolrBoostValuesImpl" scope="prototype"></bean>        
+        <bean id="com.mycompany.core.solr.boost.domain.SolrBoostDetails" class="com.mycompany.core.solr.boost.domain.SolrBoostDetailsImpl" scope="prototype"></bean>      
+        <bean id="com.mycompany.core.solr.boost.domain.SolrBoostFieldValue" class="com.mycompany.core.solr.boost.domain.SolrBoostFieldValueImpl" scope="prototype"></bean>    
+        <bean id="com.mycompany.core.solr.boost.domain.BoostQuery" class="com.mycompany.core.solr.boost.domain.BoostQueryImpl" scope="prototype"></bean>    
+        <bean id="com.mycompany.core.solr.boost.domain.BoostCategory" class="com.mycompany.core.solr.boost.domain.BoostCategoryImpl" scope="prototype"></bean>        
+        <bean id="com.mycompany.core.solr.boost.domain.BoostProduct" class="com.mycompany.core.solr.boost.domain.BoostProductImpl" scope="prototype"></bean>        
          
-        <bean id="com.mycompany.core.solr.bost.domain.SolrBoostDetails" class="com.mycompany.core.solr.bost.domain.SolrBoostDetailsImpl" scope="prototype"></bean>        
                 
 </beans>

@@ -10,9 +10,12 @@
         
         <mapping-file>query/solrboost.orm.xml</mapping-file>
          <class>com.mycompany.core.solr.boost.domain.RdrSolrBoostImpl</class>
+		 <class>com.mycompany.core.solr.boost.domain.SolrBoostFieldValueImpl</class>
          <class>com.mycompany.core.solr.boost.domain.SolrBoostValuesImpl</class>
          <class>com.mycompany.core.solr.boost.domain.SolrBoostDetailsImpl</class>
-                           
+         <class>com.mycompany.core.solr.boost.domain.BoostCategoryImpl</class>
+         <class>com.mycompany.core.solr.boost.domain.BoostProductImpl</class>
+         <class>com.mycompany.core.solr.boost.domain.BoostQueryImpl</class>
                            
          
          

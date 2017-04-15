@@ -22,7 +22,7 @@ import org.hibernate.annotations.Parameter;
 
 @Entity
 @Table(name="SOLR_BOOST_DETAILS")
-@AdminPresentationClass(populateToOneFields = PopulateToOneFieldsEnum.TRUE, friendlyName = "solrBoostDetails")
+@AdminPresentationClass(populateToOneFields = PopulateToOneFieldsEnum.TRUE, friendlyName = "solr Boost Details")
 
 public class SolrBoostDetailsImpl implements SolrBoostDetails{
 
@@ -49,23 +49,24 @@ public class SolrBoostDetailsImpl implements SolrBoostDetails{
 	
 	
 	@Column(name="START_DATE")
-	@AdminPresentation(friendlyName = "SolrBoostDetailsImpl_start", group = GroupName.Description, order = FieldOrder.Name, prominent = true, gridOrder = 1)
+	@AdminPresentation(friendlyName = "SolrBoostDetailsImpl_start", group = GroupName.Description, order = FieldOrder.Name, prominent = true, gridOrder = 2)
     protected Date startDate ;
 	
 	
 	
 	@Column(name="END_DATE")
-	@AdminPresentation(friendlyName = "SolrBoostDetailsImpl_End", group = GroupName.Description, order = FieldOrder.Name, prominent = true, gridOrder = 1)
+	@AdminPresentation(friendlyName = "SolrBoostDetailsImpl_end", group = GroupName.Description, order = FieldOrder.Name, prominent = true, gridOrder = 3)
     protected Date endDate;
 	
 	
 	@ManyToOne(targetEntity = SolrBoostValuesImpl.class)
 	@JoinColumn(name = "SOLR_BOOST_VALUE_ID")
-	@AdminPresentation(friendlyName = "SolrBoostValuesImpl_values", prominent = true, gridOrder = 2)
+	@AdminPresentation(friendlyName = "SolrBoostDetailsImpl_Value", prominent = true, gridOrder = 1)
     @AdminPresentationToOneLookup
-	
-	protected SolrBoostValues values ;
+ 	protected SolrBoostValues values ;
 
+	
+	
 	public Long getId() {
 		return id;
 	}

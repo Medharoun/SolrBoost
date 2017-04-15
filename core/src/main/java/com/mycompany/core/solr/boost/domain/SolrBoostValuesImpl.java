@@ -20,7 +20,7 @@ import org.hibernate.annotations.Parameter;
 
 @Entity
 @Table(name="SOLR_BOOST_VALUES")
-@AdminPresentationClass(populateToOneFields = PopulateToOneFieldsEnum.TRUE, friendlyName = "solrBoostvalues")
+@AdminPresentationClass(populateToOneFields = PopulateToOneFieldsEnum.TRUE, friendlyName = "solr Boost values")
 public class SolrBoostValuesImpl implements SolrBoostValues{
 	
 	
@@ -43,7 +43,7 @@ public class SolrBoostValuesImpl implements SolrBoostValues{
 	
 	
 	@Column(name = "VALUE")
-	@AdminPresentation(friendlyName = "SolrBoostValuesImpl_Value.", group = GroupName.Description, order = FieldOrder.Name, prominent = true, gridOrder = 1)
+	@AdminPresentation(friendlyName = "SolrBoostValuesImpl_Value", group = GroupName.Description, order = FieldOrder.Name, prominent = true, gridOrder = 1)
 	protected String value;
 	
 	
@@ -54,9 +54,14 @@ public class SolrBoostValuesImpl implements SolrBoostValues{
 	@AdminPresentationToOneLookup
 	protected RdrSolrBoost rdrSolrBoost;
 	
+	
+	
 	@Column(name = "BOOST_AMOUNT")
-	@AdminPresentation(friendlyName = "OfferImpl_amount", group = GroupName.Description, order = FieldOrder.Name, prominent = true, gridOrder = 1)
+	@AdminPresentation(friendlyName = "OfferImpl_amount", group = GroupName.Description, order = FieldOrder.Name, prominent = true, gridOrder = 3)
 	protected Double boostAmount;
+	
+	
+	
 	
 	@Override
 	public Long getId() {

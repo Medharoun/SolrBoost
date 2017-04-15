@@ -22,7 +22,7 @@ import org.hibernate.annotations.Parameter;
 
 @Entity
 @Table(name="SOLR_BOOST")
-@AdminPresentationClass(populateToOneFields = PopulateToOneFieldsEnum.TRUE, friendlyName = "solrBoostBase")
+@AdminPresentationClass(populateToOneFields = PopulateToOneFieldsEnum.TRUE, friendlyName = "solr Boost")
 public class RdrSolrBoostImpl implements RdrSolrBoost {
 	
 	private static final long serialVersionUID = 1L; 
@@ -51,9 +51,9 @@ public class RdrSolrBoostImpl implements RdrSolrBoost {
 	@AdminPresentationToOneLookup
 	protected Field field;
 	
-	@Column(name = "BOOST_AMOUNT")
-	@AdminPresentation(friendlyName = "RdrSolrBoostImpl_amount", group = GroupName.Description, order = FieldOrder.Name, prominent = true, gridOrder = 3)
-	protected Double boostAmount;
+//	@Column(name = "BOOST_AMOUNT")
+//	@AdminPresentation(friendlyName = "RdrSolrBoostImpl_amount", group = GroupName.Description, order = FieldOrder.Name, prominent = true, gridOrder = 3)
+//	protected Double boostAmount;
 	
 	
 	@Column(name = "IS_ACTIVE")
@@ -99,17 +99,17 @@ public class RdrSolrBoostImpl implements RdrSolrBoost {
 		this.field=field;
 		
 	}
-	@Override
-	public Double getBoostAmount() {
-		// TODO Auto-generated method stub
-		return boostAmount;
-	}
-	@Override
-	public void setBoostAmount(Double boostAmount) {
-		// TODO Auto-generated method stub
-		this.boostAmount=boostAmount;
-		
-	}
+//	@Override
+//	public Double getBoostAmount() {
+//		// TODO Auto-generated method stub
+//		return boostAmount;
+//	}
+//	@Override
+//	public void setBoostAmount(Double boostAmount) {
+//		// TODO Auto-generated method stub
+//		this.boostAmount=boostAmount;
+//		
+//	}
 	
 	@Override
 	public boolean isActive() {

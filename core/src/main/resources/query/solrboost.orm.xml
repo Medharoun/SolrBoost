@@ -3,10 +3,25 @@
 xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd" version="2.0">
 
 
+
 <named-query name="SOLR_BOOST_ALL_FIELDS" >
         <query>SELECT boost FROM com.mycompany.core.solr.boost.domain.RdrSolrBoost boost</query>
 </named-query>
 
+<named-query name="SOLR_BOOST_ALL_PRODUCTS" >
+        <query>SELECT product FROM com.mycompany.core.solr.boost.domain.BoostProduct product</query>
+</named-query>
 
+<named-query name="SOLR_BOOST_ALL_CATEGORIES" >
+        <query>SELECT category FROM com.mycompany.core.solr.boost.domain.BoostCategory category</query>
+</named-query>
+
+<named-query name="SOLR_BOOST_ALL_QUERIES" >
+        <query>SELECT query FROM com.mycompany.core.solr.boost.domain.BoostQuery query</query>
+</named-query>
+
+<named-query name="SOLR_BOOST_ALL_BOOSTS" >
+        <query>SELECT solrBoostFieldValue FROM com.mycompany.core.solr.boost.domain.SolrBoostFieldValue solrBoostFieldValue</query>
+</named-query>
 
 </entity-mappings>
