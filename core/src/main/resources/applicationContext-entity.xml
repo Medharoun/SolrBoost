@@ -29,7 +29,8 @@
         <bean id="com.mycompany.core.solr.boost.domain.SolrBoostFieldValue" class="com.mycompany.core.solr.boost.domain.SolrBoostFieldValueImpl" scope="prototype"></bean>    
         <bean id="com.mycompany.core.solr.boost.domain.BoostQuery" class="com.mycompany.core.solr.boost.domain.BoostQueryImpl" scope="prototype"></bean>    
         <bean id="com.mycompany.core.solr.boost.domain.BoostCategory" class="com.mycompany.core.solr.boost.domain.BoostCategoryImpl" scope="prototype"></bean>        
-        <bean id="com.mycompany.core.solr.boost.domain.BoostProduct" class="com.mycompany.core.solr.boost.domain.BoostProductImpl" scope="prototype"></bean>        
+        <bean id="com.mycompany.core.solr.boost.domain.BoostProduct" class="com.mycompany.core.solr.boost.domain.BoostProductImpl" scope="prototype"></bean>  
+        <bean id="org.broadleafcommerce.core.catalog.domain.Product" class="com.mycompany.core.solr.boost.domain.StProductImpl" scope="prototype"></bean>      
          
                 
 </beans>

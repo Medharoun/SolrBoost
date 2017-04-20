@@ -19,6 +19,11 @@
     <p th:utext="*{longDescription}"></p>
 </div>
 
+<div th:if="*{Boosted}" class="content">
+    <div class="title" th:utext="*{name}"></div>
+    <p th:utext="Sponsored"></p>
+</div>
+
 <div th:class="*{'productActions productActions' + id}"
      th:with="checkInventory=*{defaultSku.inventoryType?.type == 'CHECK_QUANTITY'},
               availableInventory=${checkInventory ? #object.defaultSku.quantityAvailable != null and #object.defaultSku.quantityAvailable != 0 : true},

@@ -152,7 +152,7 @@
 	<bean id="solrAdminServer" class="org.apache.solr.client.solrj.impl.LBHttpSolrServer">
 	        <constructor-arg value="${solr.url.admin}"/>
 	</bean>
-	<bean id="blSearchService" class="org.broadleafcommerce.core.search.service.solr.SolrSearchServiceImpl"/>
+	<bean id="blSearchService" class="com.mycompany.core.solr.boost.service.StSolrSearchServiceImpl"/>
 
 
     <!-- When the Private Demo starts up with DDL set to create or create-drop, we need to make sure that we -->

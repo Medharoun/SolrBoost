@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
+import org.apache.hadoop.classification.InterfaceAudience.Private;
 import org.apache.lucene.queries.function.BoostedQuery;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.common.params.CommonParams;
@@ -48,30 +49,31 @@ public class StAbstractSolrSearchServiceExtensionHandler extends AbstractSolrSea
     public ExtensionResultStatusType modifySolrQuery(SolrQuery query, String qualifiedSolrQuery,List<SearchFacetDTO> facets, SearchCriteria searchCriteria, String defaultSort) {
 
 
-		String q = query.getQuery();
-		 List<Long> result = new ArrayList<>();
 		
-		List<SolrBoostFieldValue> boosts = dao.getAllBoosts();
+		 List<Long> result = new ArrayList<>();
+		 String boosted = "";
+		 int rows = 0 ;
+		 List<SolrBoostFieldValue> boosts = dao.getAllBoosts();
 	    
-		boosts.forEach(value -> {
+		for (SolrBoostFieldValue value : boosts){
 			if (value instanceof BoostProduct){
-				boostProductService.SolrBoostSearchforProduct(result, query, boosts);
+				boosted = boostProductService.SolrBoostSearchforProduct(result, (BoostProduct)value , boosted ,rows);
 			}else if (value instanceof BoostCategory){
 				
 			}else {
 				
 			}
-		});
+		};
 		
-		
-		
-		
-		
-	
-		
-		query.setQuery(q);
-		
+		boosted=boosted.substring(0, boosted.length()-4);
+		String queryT = query.getQuery()+"&fq=-productId:("+boosted+")&start=0&rows="+rows;
+		query.setQuery(query.getQuery()+"&fq=-productId:("+boosted+")&start=0&rows="+rows);
+
+
         return ExtensionResultStatusType.HANDLED;
     }
+	
+	
+
 	
 }

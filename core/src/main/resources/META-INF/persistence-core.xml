@@ -16,6 +16,7 @@
          <class>com.mycompany.core.solr.boost.domain.BoostCategoryImpl</class>
          <class>com.mycompany.core.solr.boost.domain.BoostProductImpl</class>
          <class>com.mycompany.core.solr.boost.domain.BoostQueryImpl</class>
+         <class>com.mycompany.core.solr.boost.domain.StProductImpl</class>
                            
          
          
