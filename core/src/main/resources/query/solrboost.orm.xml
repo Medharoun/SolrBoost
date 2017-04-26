@@ -24,4 +24,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.c
         <query>SELECT solrBoostFieldValue FROM com.mycompany.core.solr.boost.domain.SolrBoostFieldValue solrBoostFieldValue</query>
 </named-query>
 
+<named-query name="SOLR_BOOST_ALL_ST_PRODUCTS" >
+        <query>SELECT stProduct FROM com.mycompany.core.solr.boost.domain.StProduct stProduct</query>
+</named-query>
 </entity-mappings>

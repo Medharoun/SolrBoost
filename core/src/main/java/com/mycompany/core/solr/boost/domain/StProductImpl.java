@@ -16,7 +16,7 @@ public class StProductImpl extends ProductImpl implements StProduct{
 	private static final long serialVersionUID = 1L;
 	
 	@Column
-	boolean boosted = false;
+	boolean boosted;
 
 	@Override
 	public boolean isBoosted() {

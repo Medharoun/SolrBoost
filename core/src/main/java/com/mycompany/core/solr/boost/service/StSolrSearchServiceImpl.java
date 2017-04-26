@@ -5,44 +5,62 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.solr.common.SolrDocument;
 import org.broadleafcommerce.core.catalog.domain.Product;
+import org.broadleafcommerce.core.catalog.service.CatalogService;
 import org.broadleafcommerce.core.search.service.solr.SolrSearchServiceImpl;
+import org.springframework.stereotype.Service;
 
 import com.mycompany.core.solr.boost.dao.SolrBoostDao;
 import com.mycompany.core.solr.boost.domain.BoostProduct;
 import com.mycompany.core.solr.boost.domain.SolrBoostFieldValue;
 import com.mycompany.core.solr.boost.domain.StProduct;
 
+@Service("StSolrSearchServiceImpl")
 public class StSolrSearchServiceImpl extends SolrSearchServiceImpl implements StSolrSearchService{
 	
 	@Resource(name = "solrBoostDao")
 	private SolrBoostDao dao;
 	
+	@Resource(name= "blCatalogService")
+	private CatalogService catalogServiceImpl;
+	
 	
 	@Override
 	protected List<Product> getProducts(List<SolrDocument> responseDocuments) {
-		
+		List<Product> stProducts = new ArrayList<>();
 		List<SolrBoostFieldValue> boosts = dao.getAllBoosts();
-		List<Product> products = new ArrayList<Product>();
+		List<Product> products = new ArrayList<>();
+		
+		
 		
 		for (SolrBoostFieldValue value : boosts){
 			if (value instanceof BoostProduct){
 				StProduct product = (StProduct) ((BoostProduct)value).getProduct();
 				product.setBoosted(true);
-				products.add(product);
+				stProducts.add(product);
 			}
 		}
 		
-		for (Product p : products){
-			
+		List<Product> pProducts = super.getProducts(responseDocuments);
+		if(CollectionUtils.isNotEmpty(pProducts)){
+			for (Product p : pProducts){
+				if (products.indexOf(p)==-1){
+					stProducts.add(p);
+					}
+				}
 		}
-		//products.addAll(super.getProducts(responseDocuments));
-		for (Product p : super.getProducts(responseDocuments)){
-			if (products.indexOf(p)==-1){
-				products.add(p);
-			}
-		}
-		return products;
+		return stProducts;
 	}
+	
+	
+//	public class ProductComparator implements Comparator<StProduct>{
+//
+//		@Override
+//		public int compare(StProduct o1, StProduct o2) {
+//			// TODO Auto-generated method stub
+//			return o1.isBoosted() == o2.isBoosted() ? 0 : (o1.isBoosted() ? 1 : -1);
+//		}
+//	}
 }

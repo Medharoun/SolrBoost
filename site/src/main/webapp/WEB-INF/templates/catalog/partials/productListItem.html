@@ -7,6 +7,13 @@
         <div blc:price="*{salePrice}" th:if="*{onSale}" th:classappend="*{defaultSku.onSale}? 'sale'"></div>
         <div blc:price="*{retailPrice}" th:classappend="*{onSale}? 'has-sale'"></div>
     </div>
+    
+    
+    <div th:if="*{boosted}" class="sponsored">
+    	sponsored
+    </div>
+    
+    
     <div class="price" th:unless="${#object instanceof T(org.broadleafcommerce.core.catalog.domain.ProductBundle)}">
         <div blc:price="*{defaultSku.salePrice}" th:if="*{defaultSku.onSale}" th:classappend="*{defaultSku.onSale}? 'sale'"></div>
         <div blc:price="*{defaultSku.retailPrice}" th:classappend="*{defaultSku.onSale}? 'has-sale'"></div>
@@ -19,10 +26,14 @@
     <p th:utext="*{longDescription}"></p>
 </div>
 
-<div th:if="*{Boosted}" class="content">
-    <div class="title" th:utext="*{name}"></div>
-    <p th:utext="Sponsored"></p>
-</div>
+<!-- <div th:if="*{boosted}" class="content"> -->
+<!--     <div class="title" th:utext="*{name}"></div> -->
+<!--     <p th:utext="Sponsored"></p> -->
+<!-- </div> -->
+
+<!-- <div th:if="*{boosted}" class="content">Sponsored!</div> -->
+
+
 
 <div th:class="*{'productActions productActions' + id}"
      th:with="checkInventory=*{defaultSku.inventoryType?.type == 'CHECK_QUANTITY'},

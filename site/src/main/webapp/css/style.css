@@ -2251,6 +2251,16 @@ and (max-width : 480px) {
             z-index: 20;
         }
     
+           #products li .sponsored {
+            width: 150px;
+            height: 60px;
+            background: url('../img/sponsored-slider.png') no-repeat;
+            text-indent: -9999px;
+            position: absolute;
+            top: -10px;
+            left: 50px;
+            z-index: 20;
+        }
         #products li .image {
             width: 320px;
             height: 240px;

@@ -40,5 +40,5 @@
         </property>
     </bean>
     
-<!--    <bean id="blSearchService" class="com.mycompany.core.solr.boost.service.StSolrSearchServiceImpl"/> -->
+   <bean id="blSearchService" class="com.mycompany.core.solr.boost.service.StSolrSearchServiceImpl"/>
 </beans>

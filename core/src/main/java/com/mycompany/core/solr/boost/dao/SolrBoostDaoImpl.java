@@ -13,6 +13,7 @@ import com.mycompany.core.solr.boost.domain.BoostProduct;
 import com.mycompany.core.solr.boost.domain.BoostQuery;
 import com.mycompany.core.solr.boost.domain.RdrSolrBoost;
 import com.mycompany.core.solr.boost.domain.SolrBoostFieldValue;
+import com.mycompany.core.solr.boost.domain.StProduct;
 
 @Repository("solrBoostDao")
 public class SolrBoostDaoImpl implements SolrBoostDao{
@@ -47,6 +48,12 @@ public class SolrBoostDaoImpl implements SolrBoostDao{
 	@Override
 	public List<SolrBoostFieldValue> getAllBoosts() {
 		TypedQuery<SolrBoostFieldValue> query = em.createNamedQuery("SOLR_BOOST_ALL_BOOSTS", SolrBoostFieldValue.class);
+		return query.getResultList();
+	}
+
+	@Override
+	public List<StProduct> getAllStProduct() {
+		TypedQuery<StProduct> query = em.createNamedQuery("SOLR_BOOST_ALL_ST_PRODUCTS", StProduct.class);
 		return query.getResultList();
 	}
 
