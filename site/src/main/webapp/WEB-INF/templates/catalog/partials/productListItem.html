@@ -1,17 +1,15 @@
-<div th:if="*{featuredProduct}" class="new_badge">New!</div>
-
+<!-- <div th:if="*{featuredProduct}" class="new_badge">New!</div> -->
+<div th:if="*{boosted}" class="sponsored">sponsored!</div>
 <div class="image">
     <a th:href="@{*{url}}">
-    <img th:if="*{media['primary']}" blc:src="@{*{media['primary'].url} + '?browse'}" th:alt="*{name}" />
+    <img th:if="*{media['primary']}" blc:src="@{*{media['primary'].url} + '?browse'}" />
     <div class="price" th:if="${#object instanceof T(org.broadleafcommerce.core.catalog.domain.ProductBundle)}">
         <div blc:price="*{salePrice}" th:if="*{onSale}" th:classappend="*{defaultSku.onSale}? 'sale'"></div>
         <div blc:price="*{retailPrice}" th:classappend="*{onSale}? 'has-sale'"></div>
     </div>
     
     
-    <div th:if="*{boosted}" class="sponsored">
-    	sponsored
-    </div>
+    
     
     
     <div class="price" th:unless="${#object instanceof T(org.broadleafcommerce.core.catalog.domain.ProductBundle)}">
@@ -22,7 +20,8 @@
 </div>
 
 <div class="content">
-    <div class="title" th:utext="*{name}"></div>
+<a th:href="@{*{url}}">
+    <div class="title" th:utext="*{name}"></div></a>
     <p th:utext="*{longDescription}"></p>
 </div>
 

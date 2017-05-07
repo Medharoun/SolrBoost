@@ -1529,15 +1529,15 @@ ul.payment_methods li {
         position: relative;
     }
     
-        #products li .new_badge {
-            width: 60px;
+        #products li .sponsored {
+            width: 150px;
             height: 60px;
-            background: url('../img/badge-new.png') no-repeat;
+            background: url('../img/sponsored-stamp.png') no-repeat;
             text-indent: -9999px;
             position: absolute;
             top: -10px;
             left: -10px;
-            z-index: 20;
+            z-index: 9999;
         }
     
         #products li .image {
@@ -2243,7 +2243,7 @@ and (max-width : 480px) {
         #products li .new_badge {
             width: 60px;
             height: 60px;
-            background: url('../img/badge-new.png') no-repeat;
+            background: url('../img/sponsored-slider.png') no-repeat;
             text-indent: -9999px;
             position: absolute;
             top: -10px;
@@ -2251,16 +2251,16 @@ and (max-width : 480px) {
             z-index: 20;
         }
     
-           #products li .sponsored {
-            width: 150px;
-            height: 60px;
-            background: url('../img/sponsored-slider.png') no-repeat;
-            text-indent: -9999px;
-            position: absolute;
-            top: -10px;
-            left: 50px;
-            z-index: 20;
-        }
+/*            #products li .sponsored { */
+/*             width: 150px; */
+/*             height: 60px; */
+/*             background: url('../img/sponsored-slider.png') no-repeat; */
+/*             text-indent: -9999px; */
+/*             position: absolute; */
+/*             top: -10px; */
+/*             left: 50px; */
+/*             z-index: 20; */
+/*         } */
         #products li .image {
             width: 320px;
             height: 240px;

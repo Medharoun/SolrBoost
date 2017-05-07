@@ -7,8 +7,12 @@ import javax.annotation.Resource;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.solr.common.SolrDocument;
+import org.broadleafcommerce.common.exception.ServiceException;
+import org.broadleafcommerce.core.catalog.domain.Category;
 import org.broadleafcommerce.core.catalog.domain.Product;
 import org.broadleafcommerce.core.catalog.service.CatalogService;
+import org.broadleafcommerce.core.search.domain.SearchCriteria;
+import org.broadleafcommerce.core.search.domain.SearchResult;
 import org.broadleafcommerce.core.search.service.solr.SolrSearchServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +30,7 @@ public class StSolrSearchServiceImpl extends SolrSearchServiceImpl implements St
 	@Resource(name= "blCatalogService")
 	private CatalogService catalogServiceImpl;
 	
+	private Category category;
 	
 	@Override
 	protected List<Product> getProducts(List<SolrDocument> responseDocuments) {
@@ -38,8 +43,10 @@ public class StSolrSearchServiceImpl extends SolrSearchServiceImpl implements St
 		for (SolrBoostFieldValue value : boosts){
 			if (value instanceof BoostProduct){
 				StProduct product = (StProduct) ((BoostProduct)value).getProduct();
+				if(product.getCategory().equals(category)){
 				product.setBoosted(true);
 				stProducts.add(product);
+			}
 			}
 		}
 		
@@ -53,6 +60,14 @@ public class StSolrSearchServiceImpl extends SolrSearchServiceImpl implements St
 		}
 		return stProducts;
 	}
+	
+	
+	@Override
+	public SearchResult findSearchResults(SearchCriteria searchCriteria) throws ServiceException {
+		category=searchCriteria.getCategory();
+		return super.findSearchResults(searchCriteria);
+	}
+
 	
 	
 //	public class ProductComparator implements Comparator<StProduct>{

@@ -11,8 +11,11 @@ import org.broadleafcommerce.common.presentation.AdminPresentation;
 import org.broadleafcommerce.common.presentation.AdminPresentationClass;
 import org.broadleafcommerce.common.presentation.AdminPresentationToOneLookup;
 import org.broadleafcommerce.common.presentation.PopulateToOneFieldsEnum;
+import org.broadleafcommerce.common.presentation.RequiredOverride;
 import org.broadleafcommerce.core.catalog.domain.Product;
 import org.broadleafcommerce.core.catalog.domain.ProductImpl;
+import org.broadleafcommerce.core.catalog.domain.ProductAdminPresentation.FieldOrder;
+import org.broadleafcommerce.core.catalog.domain.ProductAdminPresentation.GroupName;
 
 
 @Entity
@@ -21,12 +24,14 @@ import org.broadleafcommerce.core.catalog.domain.ProductImpl;
 @AdminPresentationClass(populateToOneFields = PopulateToOneFieldsEnum.TRUE, friendlyName = "Boost Product")
 public class BoostProductImpl extends SolrBoostFieldValueImpl implements BoostProduct{
 	
-	
-
+	private static final long serialVersionUID = 1L;
 	@ManyToOne(targetEntity = ProductImpl.class)
 	@JoinColumn(name = "PRODUCT_ID")
-	@AdminPresentation(friendlyName = "BoostProductImpl_product", prominent = true, gridOrder = 1)
-	@AdminPresentationToOneLookup
+	@AdminPresentation(friendlyName = "ProductImpl_Product_Default_Category", order = FieldOrder.DEFAULT_CATEGORY,
+	    group = GroupName.General,
+	    prominent = true, gridOrder = 2,
+	    requiredOverride = RequiredOverride.REQUIRED)
+	@AdminPresentationToOneLookup()
 	protected Product product;
 
 	
@@ -39,6 +44,5 @@ public class BoostProductImpl extends SolrBoostFieldValueImpl implements BoostPr
 	public void setProduct(Product product) {
 		this.product = product;
 	}
-	
 
 }

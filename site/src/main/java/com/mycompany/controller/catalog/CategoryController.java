@@ -16,12 +16,12 @@
 
 package com.mycompany.controller.catalog;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.broadleafcommerce.core.web.controller.catalog.BroadleafCategoryController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * This class works in combination with the CategoryHandlerMapping which finds a category based upon
