@@ -12,6 +12,7 @@ import org.broadleafcommerce.core.catalog.domain.Category;
 import org.broadleafcommerce.core.catalog.domain.Product;
 import org.broadleafcommerce.core.catalog.service.CatalogService;
 import org.broadleafcommerce.core.search.domain.SearchCriteria;
+import org.broadleafcommerce.core.search.domain.SearchFacetDTO;
 import org.broadleafcommerce.core.search.domain.SearchResult;
 import org.broadleafcommerce.core.search.service.solr.SolrSearchServiceImpl;
 import org.springframework.stereotype.Service;
@@ -66,6 +67,13 @@ public class StSolrSearchServiceImpl extends SolrSearchServiceImpl implements St
 	public SearchResult findSearchResults(SearchCriteria searchCriteria) throws ServiceException {
 		category=searchCriteria.getCategory();
 		return super.findSearchResults(searchCriteria);
+	}
+	
+	@Override
+	protected SearchResult findSearchResults(String qualifiedSolrQuery, List<SearchFacetDTO> facets,
+			SearchCriteria searchCriteria, String defaultSort, String... filterQueries) throws ServiceException {
+		
+		return super.findSearchResults(qualifiedSolrQuery, facets, searchCriteria, defaultSort, filterQueries);
 	}
 
 	
