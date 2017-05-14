@@ -23,7 +23,7 @@ import org.broadleafcommerce.core.catalog.domain.CategoryImpl;
 public class BoostCategoryImpl extends SolrBoostFieldValueImpl implements BoostCategory{
 
 	
-	@ManyToOne(targetEntity = CategoryImpl.class , cascade = CascadeType.ALL)
+	@ManyToOne(targetEntity = CategoryImpl.class , cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "CATEGORY_ID")
 	@AdminPresentation(friendlyName = "BoostCategoryImpl_category", prominent = true, gridOrder = 1)
 	@AdminPresentationToOneLookup

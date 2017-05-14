@@ -16,11 +16,11 @@ public class StBoostProductService {
 	@Resource(name = "blSolrSearchServiceExtensionManager")
     protected SolrSearchServiceExtensionManager extensionManager;
 	
-	 public String SolrBoostSearchforProduct (List<Long> result, BoostProduct boostProduct , String boosted , int rows){
+	 public String SolrBoostSearchforProduct (List<Long> result, BoostProduct boostProduct , String boosted ){
 		 
 		 result.add(boostProduct.getProduct().getId());
 		 boosted+=boostProduct.getProduct().getId()+" OR ";
-		 rows = 15-result.size();
+//		 rows = 15-result.size();
 		 return boosted;
 	}
 }

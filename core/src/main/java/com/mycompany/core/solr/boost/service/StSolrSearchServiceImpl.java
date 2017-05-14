@@ -32,26 +32,57 @@ public class StSolrSearchServiceImpl extends SolrSearchServiceImpl implements St
 	private CatalogService catalogServiceImpl;
 	
 	private Category category;
+	private String query;
 	
 	@Override
 	protected List<Product> getProducts(List<SolrDocument> responseDocuments) {
 		List<Product> stProducts = new ArrayList<>();
 		List<SolrBoostFieldValue> boosts = dao.getAllBoosts();
 		List<Product> products = new ArrayList<>();
-		
-		
-		
+//		List<Long> productsId = new ArrayList<>();
+		List<String> categories = new ArrayList<>();
+//		
+//		
+//		if(CollectionUtils.isNotEmpty(pProducts)){
+//			for (Product p : pProducts){
+//				productsId.add(p.getId());
+//			}
+//		}
+		boolean test = false ;
 		for (SolrBoostFieldValue value : boosts){
 			if (value instanceof BoostProduct){
 				StProduct product = (StProduct) ((BoostProduct)value).getProduct();
-				if(product.getCategory().equals(category)){
-				product.setBoosted(true);
-				stProducts.add(product);
-			}
-			}
+				String cat = product.getCategory().getDescription();
+				if (product.getAllParentCategories().size()>1){ 
+				for (Category category : product.getAllParentCategories()){
+					 categories.add(category.getDescription());
+				 }
+				}
+				
+				String p = product.getName() + " " + product.getDescription() + " " + product.getLongDescription();  
+				
+				
+				if  (((category==null)&&(p.indexOf(query)!=-1))  || ((product.getCategory().equals(category))   ||  ( (categories.indexOf(product.getCategory().getDescription())!=-1) && categories.indexOf(category.getDescription())!=-1) )||((category!=null)&&(category.getId()==2001))   ) 
+				
+				{
+						product.setBoosted(true);
+						stProducts.add(product);
+				}
+				
+		}
 		}
 		
-		List<Product> pProducts = super.getProducts(responseDocuments);
+		
+//		List<Product> helpers = new ArrayList<>();
+//		for (SolrDocument doc : responseDocuments) {
+//			ProductHelper ph = new ProductHelperImpl();
+//			ph.setId((Long) doc.getFieldValue(shs.getIndexableIdFieldName()));
+//			ph.setName(doc.getFieldValue("name"));
+//            productIds.add((Long) doc.getFieldValue(shs.getIndexableIdFieldName()));
+//        }
+		
+		List<Product> pProducts = super.getProducts(responseDocuments); 
+
 		if(CollectionUtils.isNotEmpty(pProducts)){
 			for (Product p : pProducts){
 				if (products.indexOf(p)==-1){
@@ -66,6 +97,9 @@ public class StSolrSearchServiceImpl extends SolrSearchServiceImpl implements St
 	@Override
 	public SearchResult findSearchResults(SearchCriteria searchCriteria) throws ServiceException {
 		category=searchCriteria.getCategory();
+		query=searchCriteria.getQuery();
+		if(query!=null)
+		query=query.substring(1,query.length()-1);
 		return super.findSearchResults(searchCriteria);
 	}
 	

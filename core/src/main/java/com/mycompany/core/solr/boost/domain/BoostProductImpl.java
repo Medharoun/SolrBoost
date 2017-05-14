@@ -1,5 +1,6 @@
 package com.mycompany.core.solr.boost.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -25,9 +26,9 @@ import org.broadleafcommerce.core.catalog.domain.ProductAdminPresentation.GroupN
 public class BoostProductImpl extends SolrBoostFieldValueImpl implements BoostProduct{
 	
 	private static final long serialVersionUID = 1L;
-	@ManyToOne(targetEntity = ProductImpl.class)
+	@ManyToOne(targetEntity = ProductImpl.class , cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "PRODUCT_ID")
-	@AdminPresentation(friendlyName = "ProductImpl_Product_Default_Category", order = FieldOrder.DEFAULT_CATEGORY,
+	@AdminPresentation(friendlyName = "BoostProductImpl_Product", order = FieldOrder.DEFAULT_CATEGORY,
 	    group = GroupName.General,
 	    prominent = true, gridOrder = 2,
 	    requiredOverride = RequiredOverride.REQUIRED)

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import com.mycompany.core.solr.boost.domain.BoostCategory;
 import com.mycompany.core.solr.boost.domain.BoostProduct;
-import com.mycompany.core.solr.boost.domain.BoostQuery;
 import com.mycompany.core.solr.boost.domain.RdrSolrBoost;
 import com.mycompany.core.solr.boost.domain.SolrBoostFieldValue;
 import com.mycompany.core.solr.boost.domain.StProduct;
@@ -39,11 +38,11 @@ public class SolrBoostDaoImpl implements SolrBoostDao{
 		return query.getResultList();
 	}
 
-	@Override
-	public List<BoostQuery> getAllQueryBoosted() {
-		TypedQuery<BoostQuery> query = em.createNamedQuery("SOLR_BOOST_ALL_QUERIES", BoostQuery.class);
-		return query.getResultList();
-	}
+//	@Override
+//	public List<BoostQuery> getAllQueryBoosted() {
+//		TypedQuery<BoostQuery> query = em.createNamedQuery("SOLR_BOOST_ALL_QUERIES", BoostQuery.class);
+//		return query.getResultList();
+//	}
 
 	@Override
 	public List<SolrBoostFieldValue> getAllBoosts() {

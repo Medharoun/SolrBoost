@@ -29,7 +29,4 @@ public class StProductImpl extends ProductImpl implements StProduct{
 		
 	}
 	
-	
-	
-	 
 }
