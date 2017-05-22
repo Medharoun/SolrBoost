@@ -1,7 +1,11 @@
 package com.mycompany.core.solr.domain;
 
+import javax.persistence.Transient;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -10,6 +14,7 @@ import org.broadleafcommerce.common.copy.CreateResponse;
 import org.broadleafcommerce.common.copy.MultiTenantCopyContext;
 import org.broadleafcommerce.common.media.domain.Media;
 import org.broadleafcommerce.common.money.Money;
+import org.broadleafcommerce.common.persistence.ArchiveStatus;
 import org.broadleafcommerce.common.vendor.service.type.ContainerShapeType;
 import org.broadleafcommerce.common.vendor.service.type.ContainerSizeType;
 import org.broadleafcommerce.core.catalog.domain.Category;
@@ -24,54 +29,146 @@ import org.broadleafcommerce.core.catalog.domain.Sku;
 import org.broadleafcommerce.core.catalog.domain.Weight;
 import org.broadleafcommerce.core.search.domain.FieldEntity;
 
-public class ProductHelperImpl implements ProductHelper{
+public class ProductHelperImpl implements ProductHelper {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	protected Long id;
+
+	protected String url;
+
+	protected Boolean overrideGeneratedUrl = false;
+
+	protected String urlKey;
+
+	protected String displayTemplate;
+
+	protected String model;
+
+	protected String manufacturer;
+
+	protected Boolean isFeaturedProduct = false;
+
+	protected Sku defaultSku;
+
+	protected Boolean canSellWithoutOptions = false;
+
+	protected List<Sku> skus = new ArrayList<Sku>();
+
+	protected String promoMessage;
+
+	protected List<RelatedProduct> crossSaleProducts = new ArrayList<RelatedProduct>();
+
+	protected List<RelatedProduct> upSaleProducts = new ArrayList<RelatedProduct>();
+
+	protected List<Sku> additionalSkus = new ArrayList<Sku>();
+
+	protected Category defaultCategory;
+
+	protected List<CategoryProductXref> allParentCategoryXrefs = new ArrayList<CategoryProductXref>();
+
+	protected Map<String, ProductAttribute> productAttributes = new HashMap<String, ProductAttribute>();
+
+	protected List<ProductOptionXref> productOptions = new ArrayList<ProductOptionXref>();
+
+	protected Map<String, Set<String>> productOptionMap;
+
+	protected ArchiveStatus archiveStatus = new ArchiveStatus();
+
+	protected Boolean boosted;
+
+	@Transient
+	protected String imageUrl;
+
+	// protected RdrShop shop;
+	//
+	// protected Boolean isProductTendance;
+	//
+	// protected List<RdrProductGiftXref> productGiftXref = new
+	// ArrayList<RdrProductGiftXref>();
+	//
+	// protected String productType;
+	//
+	// protected List<RdrProductMaterialXref> materials = new
+	// ArrayList<RdrProductMaterialXref>();
+	//
+	// protected List<RdrProductTag> tags = new ArrayList<RdrProductTag>();
+	//
+	// protected List<RdrProductShippingProfile> productShippingProfileXref =
+	// new ArrayList<RdrProductShippingProfile>();
+	//
+	// protected List<RdrProductEventXref> productEventXrefs = new
+	// ArrayList<RdrProductEventXref>();
+	//
+	// protected Long nbrCoeurs;
+	//
+	// protected Double ratingValue;
+	//
+	// @Transient
+	// protected Map<String, SkuMediaXref> skuMedia;
+	//
+	// @Transient
+	// protected String percentDiscount;
+	//
+	// @Transient
+	// private String defaulSkuImg;
+	//
+	// @Transient
+	// protected Money retailPrice;
+	//
+	// @Transient
+	// protected Money salePrice;
+	//
+	// @Transient
+	// protected boolean isNew;
+	//
+	// @Transient
+	// protected boolean priceOverridedStatus = true;
+	//
+	// @Transient
+	// protected Money priceOverride;
 
 	@Override
 	public Long getId() {
-		// TODO Auto-generated method stub
-		return null;
+		return id;
 	}
 
 	@Override
-	public void setId(Long id) {
-		// TODO Auto-generated method stub
-		
+	public void setId(final Long id) {
+		this.id = id;
 	}
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return getDefaultSku().getName();
 	}
 
 	@Override
-	public void setName(String name) {
-		// TODO Auto-generated method stub
-		
+	public void setName(final String name) {
+		getDefaultSku().setName(name);
 	}
 
 	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
+		return getDefaultSku().getDescription();
 	}
 
 	@Override
-	public void setDescription(String description) {
-		// TODO Auto-generated method stub
-		
+	public void setDescription(final String description) {
+		getDefaultSku().setDescription(description);
 	}
 
 	@Override
 	public String getLongDescription() {
-		// TODO Auto-generated method stub
-		return null;
+		return getDefaultSku().getLongDescription();
 	}
 
 	@Override
-	public void setLongDescription(String longDescription) {
-		// TODO Auto-generated method stub
-		
+	public void setLongDescription(final String longDescription) {
+		getDefaultSku().setLongDescription(longDescription);
 	}
 
 	@Override
@@ -81,9 +178,9 @@ public class ProductHelperImpl implements ProductHelper{
 	}
 
 	@Override
-	public void setActiveStartDate(Date activeStartDate) {
+	public void setActiveStartDate(final Date activeStartDate) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -93,9 +190,9 @@ public class ProductHelperImpl implements ProductHelper{
 	}
 
 	@Override
-	public void setActiveEndDate(Date activeEndDate) {
+	public void setActiveEndDate(final Date activeEndDate) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -106,14 +203,16 @@ public class ProductHelperImpl implements ProductHelper{
 
 	@Override
 	public Sku getDefaultSku() {
-		// TODO Auto-generated method stub
-		return null;
+		return defaultSku;
 	}
 
 	@Override
-	public void setDefaultSku(Sku defaultSku) {
-		// TODO Auto-generated method stub
-		
+	public void setDefaultSku(final Sku defaultSku) {
+		if (defaultSku != null) {
+			defaultSku.setDefaultProduct(this);
+
+		}
+		this.defaultSku = defaultSku;
 	}
 
 	@Override
@@ -123,9 +222,9 @@ public class ProductHelperImpl implements ProductHelper{
 	}
 
 	@Override
-	public void setCanSellWithoutOptions(Boolean canSellWithoutOptions) {
+	public void setCanSellWithoutOptions(final Boolean canSellWithoutOptions) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -141,9 +240,9 @@ public class ProductHelperImpl implements ProductHelper{
 	}
 
 	@Override
-	public void setAdditionalSkus(List<Sku> skus) {
+	public void setAdditionalSkus(final List<Sku> skus) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -159,15 +258,9 @@ public class ProductHelperImpl implements ProductHelper{
 	}
 
 	@Override
-	public void setMedia(Map<String, Media> media) {
+	public void setMedia(final Map<String, Media> media) {
 		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public Map<String, Media> getAllSkuMedia() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -177,9 +270,9 @@ public class ProductHelperImpl implements ProductHelper{
 	}
 
 	@Override
-	public void setCategory(Category category) {
+	public void setCategory(final Category category) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -189,9 +282,9 @@ public class ProductHelperImpl implements ProductHelper{
 	}
 
 	@Override
-	public void setDefaultCategory(Category defaultCategory) {
+	public void setDefaultCategory(final Category defaultCategory) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -201,9 +294,9 @@ public class ProductHelperImpl implements ProductHelper{
 	}
 
 	@Override
-	public void setModel(String model) {
+	public void setModel(final String model) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -213,9 +306,9 @@ public class ProductHelperImpl implements ProductHelper{
 	}
 
 	@Override
-	public void setManufacturer(String manufacturer) {
+	public void setManufacturer(final String manufacturer) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -225,9 +318,9 @@ public class ProductHelperImpl implements ProductHelper{
 	}
 
 	@Override
-	public void setDimension(Dimension dimension) {
+	public void setDimension(final Dimension dimension) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -237,9 +330,9 @@ public class ProductHelperImpl implements ProductHelper{
 	}
 
 	@Override
-	public void setWidth(BigDecimal width) {
+	public void setWidth(final BigDecimal width) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -249,9 +342,9 @@ public class ProductHelperImpl implements ProductHelper{
 	}
 
 	@Override
-	public void setHeight(BigDecimal height) {
+	public void setHeight(final BigDecimal height) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -261,9 +354,9 @@ public class ProductHelperImpl implements ProductHelper{
 	}
 
 	@Override
-	public void setDepth(BigDecimal depth) {
+	public void setDepth(final BigDecimal depth) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -273,9 +366,9 @@ public class ProductHelperImpl implements ProductHelper{
 	}
 
 	@Override
-	public void setGirth(BigDecimal girth) {
+	public void setGirth(final BigDecimal girth) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -285,9 +378,9 @@ public class ProductHelperImpl implements ProductHelper{
 	}
 
 	@Override
-	public void setSize(ContainerSizeType size) {
+	public void setSize(final ContainerSizeType size) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -297,9 +390,9 @@ public class ProductHelperImpl implements ProductHelper{
 	}
 
 	@Override
-	public void setContainer(ContainerShapeType container) {
+	public void setContainer(final ContainerShapeType container) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -315,9 +408,9 @@ public class ProductHelperImpl implements ProductHelper{
 	}
 
 	@Override
-	public void setWeight(Weight weight) {
+	public void setWeight(final Weight weight) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -327,9 +420,9 @@ public class ProductHelperImpl implements ProductHelper{
 	}
 
 	@Override
-	public void setCrossSaleProducts(List<RelatedProduct> crossSaleProducts) {
+	public void setCrossSaleProducts(final List<RelatedProduct> crossSaleProducts) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -339,9 +432,9 @@ public class ProductHelperImpl implements ProductHelper{
 	}
 
 	@Override
-	public void setUpSaleProducts(List<RelatedProduct> upSaleProducts) {
+	public void setUpSaleProducts(final List<RelatedProduct> upSaleProducts) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -351,9 +444,9 @@ public class ProductHelperImpl implements ProductHelper{
 	}
 
 	@Override
-	public void setFeaturedProduct(boolean isFeaturedProduct) {
+	public void setFeaturedProduct(final boolean isFeaturedProduct) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -363,15 +456,9 @@ public class ProductHelperImpl implements ProductHelper{
 	}
 
 	@Override
-	public Map<String, ProductAttribute> getMultiValueProductAttributes() {
+	public void setProductAttributes(final Map<String, ProductAttribute> productAttributes) {
 		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public void setProductAttributes(Map<String, ProductAttribute> productAttributes) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -381,33 +468,34 @@ public class ProductHelperImpl implements ProductHelper{
 	}
 
 	@Override
-	public void setPromoMessage(String promoMessage) {
+	public void setPromoMessage(final String promoMessage) {
 		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public List<ProductOption> getProductOptions() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
 	public List<ProductOptionXref> getProductOptionXrefs() {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
 	@Override
-	public void setProductOptions(List<ProductOption> productOptions) {
-		// TODO Auto-generated method stub
-		
+	public void setProductOptionXrefs(final List<ProductOptionXref> productOptions) {
+		this.productOptions = productOptions;
 	}
 
 	@Override
-	public void setProductOptionXrefs(List<ProductOptionXref> productOptions) {
-		// TODO Auto-generated method stub
-		
+	public List<ProductOption> getProductOptions() {
+		final List<ProductOption> response = new ArrayList<ProductOption>();
+		for (final ProductOptionXref xref : getProductOptionXrefs()) {
+			response.add(xref.getProductOption());
+		}
+		return Collections.unmodifiableList(response);
+	}
+
+	@Override
+	public void setProductOptions(final List<ProductOption> productOptions) {
+		throw new UnsupportedOperationException("Use setProductOptionXrefs(..) instead");
 	}
 
 	@Override
@@ -418,14 +506,12 @@ public class ProductHelperImpl implements ProductHelper{
 
 	@Override
 	public String getUrl() {
-		// TODO Auto-generated method stub
-		return null;
+		return url;
 	}
 
 	@Override
-	public void setUrl(String url) {
-		// TODO Auto-generated method stub
-		
+	public void setUrl(final String url) {
+		this.url = url;
 	}
 
 	@Override
@@ -435,9 +521,9 @@ public class ProductHelperImpl implements ProductHelper{
 	}
 
 	@Override
-	public void setOverrideGeneratedUrl(Boolean overrideGeneratedUrl) {
+	public void setOverrideGeneratedUrl(final Boolean overrideGeneratedUrl) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -447,9 +533,9 @@ public class ProductHelperImpl implements ProductHelper{
 	}
 
 	@Override
-	public void setUrlKey(String url) {
+	public void setUrlKey(final String url) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -459,9 +545,9 @@ public class ProductHelperImpl implements ProductHelper{
 	}
 
 	@Override
-	public void setDisplayTemplate(String displayTemplate) {
+	public void setDisplayTemplate(final String displayTemplate) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -485,7 +571,7 @@ public class ProductHelperImpl implements ProductHelper{
 	@Override
 	public void clearDynamicPrices() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -495,9 +581,9 @@ public class ProductHelperImpl implements ProductHelper{
 	}
 
 	@Override
-	public void setAllParentCategoryXrefs(List<CategoryProductXref> allParentCategories) {
+	public void setAllParentCategoryXrefs(final List<CategoryProductXref> allParentCategories) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -507,9 +593,9 @@ public class ProductHelperImpl implements ProductHelper{
 	}
 
 	@Override
-	public void setAllParentCategories(List<Category> allParentCategories) {
+	public void setAllParentCategories(final List<Category> allParentCategories) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -519,9 +605,28 @@ public class ProductHelperImpl implements ProductHelper{
 	}
 
 	@Override
-	public void setTaxCode(String taxCode) {
+	public void setTaxCode(final String taxCode) {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	@Override
+	public <G extends Product> CreateResponse<G> createOrRetrieveCopyInstance(final MultiTenantCopyContext context)
+			throws CloneNotSupportedException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Map<String, Media> getAllSkuMedia() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Map<String, ProductAttribute> getMultiValueProductAttributes() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -549,16 +654,29 @@ public class ProductHelperImpl implements ProductHelper{
 	}
 
 	@Override
-	public <G extends Product> CreateResponse<G> createOrRetrieveCopyInstance(MultiTenantCopyContext context)
-			throws CloneNotSupportedException {
+	public FieldEntity getFieldEntityType() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public FieldEntity getFieldEntityType() {
-		// TODO Auto-generated method stub
-		return null;
+	public Boolean getBoosted() {
+		return boosted;
+	}
+
+	@Override
+	public void setBoosted(Boolean boosted) {
+		this.boosted = boosted;
+	}
+	
+	@Override
+	public String getUrlImage() {
+		return getDefaultSku().getUrlKey();
+	}
+
+	@Override
+	public void setUrlImage(String urlImage) {
+		this.boosted = boosted;
 	}
 
 }

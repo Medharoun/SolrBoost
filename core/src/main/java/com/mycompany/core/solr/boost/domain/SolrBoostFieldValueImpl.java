@@ -1,5 +1,7 @@
 package com.mycompany.core.solr.boost.domain;
 
+import java.sql.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -47,8 +49,20 @@ public class SolrBoostFieldValueImpl implements SolrBoostFieldValue {
 		
 	
 	@Column(name = "AMOUNT")
-	@AdminPresentation(friendlyName = "SolrBoostFieldValueImpl_amount", group = GroupName.Description, order = FieldOrder.Name, prominent = true, gridOrder = 3)
+	@AdminPresentation(friendlyName = "SolrBoostFieldValueImpl_amount", group = GroupName.Description, order = FieldOrder.Name, prominent = true, gridOrder = 2)
 	protected Double amount;
+	
+	@Column(name = "DATE_START")
+	@AdminPresentation(friendlyName = "SolrBoostFieldValueImpl_startDate", group = GroupName.Description, order = FieldOrder.Name, prominent = true, gridOrder = 3)
+	protected Date startDate;
+	
+	@Column(name = "END_START")
+	@AdminPresentation(friendlyName = "SolrBoostFieldValueImpl_endDate", group = GroupName.Description, order = FieldOrder.Name, prominent = true, gridOrder = 4)
+	protected Date endDate;
+	
+	@Column(name = "ACTIVATED")
+	@AdminPresentation(friendlyName = "SolrBoostFieldValueImpl_activated", group = GroupName.Description, order = FieldOrder.Name, prominent = true, gridOrder = 5)
+	protected boolean activated;
 	
 	
 	@Override
@@ -73,10 +87,39 @@ public class SolrBoostFieldValueImpl implements SolrBoostFieldValue {
 	public Double getAmount() {
 		return amount;
 	}
-	
 	@Override
 	public void setAmount(Double amount) {
 		this.amount = amount;
+	}
+	@Override
+	public Date getStartDate() {
+		// TODO Auto-generated method stub
+		return startDate;
+	}
+	@Override
+	public void setStartDate(Date startDate) {
+		// TODO Auto-generated method stub
+		this.startDate=startDate;
+	}
+	@Override
+	public Date getEndDate() {
+		// TODO Auto-generated method stub
+		return endDate;
+	}
+	@Override
+	public void setEndDate(Date endDate) {
+		// TODO Auto-generated method stub
+		this.endDate=endDate;
+	}
+	@Override
+	public boolean isActivated() {
+		// TODO Auto-generated method stub
+		return activated;
+	}
+	@Override
+	public void setActivated(boolean activated) {
+		// TODO Auto-generated method stub
+		this.activated=activated;
 	}
 	
 }
