@@ -1,6 +1,5 @@
 package com.mycompany.core.solr.domain;
 
-import javax.persistence.Transient;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import javax.persistence.Transient;
 
 import org.broadleafcommerce.common.copy.CreateResponse;
 import org.broadleafcommerce.common.copy.MultiTenantCopyContext;
@@ -83,53 +84,8 @@ public class ProductHelperImpl implements ProductHelper {
 	@Transient
 	protected String imageUrl;
 
-	// protected RdrShop shop;
-	//
-	// protected Boolean isProductTendance;
-	//
-	// protected List<RdrProductGiftXref> productGiftXref = new
-	// ArrayList<RdrProductGiftXref>();
-	//
-	// protected String productType;
-	//
-	// protected List<RdrProductMaterialXref> materials = new
-	// ArrayList<RdrProductMaterialXref>();
-	//
-	// protected List<RdrProductTag> tags = new ArrayList<RdrProductTag>();
-	//
-	// protected List<RdrProductShippingProfile> productShippingProfileXref =
-	// new ArrayList<RdrProductShippingProfile>();
-	//
-	// protected List<RdrProductEventXref> productEventXrefs = new
-	// ArrayList<RdrProductEventXref>();
-	//
-	// protected Long nbrCoeurs;
-	//
-	// protected Double ratingValue;
-	//
-	// @Transient
-	// protected Map<String, SkuMediaXref> skuMedia;
-	//
-	// @Transient
-	// protected String percentDiscount;
-	//
-	// @Transient
-	// private String defaulSkuImg;
-	//
-	// @Transient
-	// protected Money retailPrice;
-	//
-	// @Transient
-	// protected Money salePrice;
-	//
-	// @Transient
-	// protected boolean isNew;
-	//
-	// @Transient
-	// protected boolean priceOverridedStatus = true;
-	//
-	// @Transient
-	// protected Money priceOverride;
+	@Transient
+	protected Map<String, Media> media = new HashMap<String, Media>();
 
 	@Override
 	public Long getId() {
@@ -254,13 +210,12 @@ public class ProductHelperImpl implements ProductHelper {
 	@Override
 	public Map<String, Media> getMedia() {
 		// TODO Auto-generated method stub
-		return null;
+		return media;
 	}
 
 	@Override
 	public void setMedia(final Map<String, Media> media) {
-		// TODO Auto-generated method stub
-
+		this.media = media;
 	}
 
 	@Override
@@ -638,13 +593,17 @@ public class ProductHelperImpl implements ProductHelper {
 	@Override
 	public Money getRetailPrice() {
 		// TODO Auto-generated method stub
-		return null;
+		if (defaultSku == null) {
+			return null;
+		} else {
+			return defaultSku.getRetailPrice();
+		}
 	}
 
 	@Override
 	public Money getSalePrice() {
 		// TODO Auto-generated method stub
-		return null;
+		return getRetailPrice();
 	}
 
 	@Override
@@ -668,7 +627,7 @@ public class ProductHelperImpl implements ProductHelper {
 	public void setBoosted(Boolean boosted) {
 		this.boosted = boosted;
 	}
-	
+
 	@Override
 	public String getUrlImage() {
 		return getDefaultSku().getUrlKey();
@@ -676,7 +635,7 @@ public class ProductHelperImpl implements ProductHelper {
 
 	@Override
 	public void setUrlImage(String urlImage) {
-		this.boosted = boosted;
+		this.imageUrl = urlImage;
 	}
 
 }

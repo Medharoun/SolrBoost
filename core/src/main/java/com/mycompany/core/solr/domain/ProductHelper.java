@@ -9,4 +9,5 @@ public interface ProductHelper extends Product {
 	
 	String getUrlImage();
 	void setUrlImage(String urlImage);
+
 }

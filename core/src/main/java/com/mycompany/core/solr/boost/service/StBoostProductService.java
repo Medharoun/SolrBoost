@@ -20,7 +20,6 @@ public class StBoostProductService {
 		 
 		 result.add(boostProduct.getProduct().getId());
 		 boosted+=boostProduct.getProduct().getId()+" OR ";
-//		 rows = 15-result.size();
 		 return boosted;
 	}
 }
