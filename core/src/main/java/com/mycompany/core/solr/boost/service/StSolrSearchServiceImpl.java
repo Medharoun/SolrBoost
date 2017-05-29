@@ -113,7 +113,7 @@ public class StSolrSearchServiceImpl extends SolrSearchServiceImpl implements St
 		 helpers.add(ph);
 		 }
 
-		List<Product> pProducts = helpers;
+		List<Product> pProducts = super.getProducts(responseDocuments);
 
 		if (CollectionUtils.isNotEmpty(pProducts)) {
 			for (Product p : pProducts) {
