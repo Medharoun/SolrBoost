@@ -7,10 +7,13 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Transient;
 
 import org.broadleafcommerce.common.media.domain.Media;
+import org.broadleafcommerce.common.presentation.AdminPresentationClass;
 import org.broadleafcommerce.core.catalog.domain.ProductImpl;
 
 @Entity(name = "ST_PRODUCT")
+@AdminPresentationClass(friendlyName="ProductBoost")
 @Inheritance(strategy = InheritanceType.JOINED)
+	
 public class StProductImpl extends ProductImpl implements StProduct {
 
 	private static final long serialVersionUID = 1L;
