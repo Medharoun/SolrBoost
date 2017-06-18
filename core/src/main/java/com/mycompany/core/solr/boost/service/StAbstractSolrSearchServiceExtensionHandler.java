@@ -2,11 +2,13 @@ package com.mycompany.core.solr.boost.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.broadleafcommerce.common.extension.ExtensionResultStatusType;
 import org.broadleafcommerce.core.search.domain.SearchCriteria;
@@ -46,51 +48,43 @@ public class StAbstractSolrSearchServiceExtensionHandler extends AbstractSolrSea
 	 */
 	@Override
     public ExtensionResultStatusType modifySolrQuery(SolrQuery query, String qualifiedSolrQuery,List<SearchFacetDTO> facets, SearchCriteria searchCriteria, String defaultSort) {
-		 query.setFields("*");
-		 List<Long> result = new ArrayList<>();
-		 String boosted = "";
-		 String catBoosted = "";
-		 int rows = 0 ;
-		 List<SolrBoostFieldValue> boosts = dao.getAllBoosts();
-		 
-		 
-		 
-	    
+		 query.setFields("*,score");
+
+		 String productBoosted = "";
+		 String categoryBoosted = "";
+
+		 List<SolrBoostFieldValue> boosts = generateListBoost(searchCriteria);
+
 		for (SolrBoostFieldValue value : boosts){
 			if (value instanceof BoostProduct){
-				boosted = boostProductService.SolrBoostSearchforProduct(result, (BoostProduct)value , boosted );	
-			}else  if ((value instanceof BoostCategory)){
-				catBoosted += boostCategoryService.SolrBoostSearchforCategory((BoostCategory)value , query);
+				query = boostProductService.SolrBoostSearchforProduct(query, (BoostProduct)value , productBoosted);	
+			} else  if ((value instanceof BoostCategory)){
+				categoryBoosted += boostCategoryService.SolrBoostSearchforCategory((BoostCategory)value , query,searchCriteria);
 			}
-		};
-		
-		boosted= boosted.substring(0, boosted.length()-4);
-		
-		if(catBoosted.length()>0)
-		catBoosted=catBoosted.substring(0, catBoosted.length()-3);
+		}
 		
 		
-		String[] fq = query.getFilterQueries();
-		
-		String bqBoost = catBoosted;
-		
-		String fqBoost = "-productId:("+boosted+")";
-		
-		
-		fq = (String[]) ArrayUtils.add(fq, fqBoost);
-		
-//		fq = (String[]) ArrayUtils.add(fq, bqBoost);
-		
-		query.add("bq", bqBoost);
-		query.setFilterQueries(fq);
-		
-		
+		if(searchCriteria.getCategory() != null && searchCriteria.getCategory().getId().equals(2001L)){
+			query.remove("fq");
+		}
+
+		query.remove("sort");
         return ExtensionResultStatusType.HANDLED;
     }
 	
 	
 	
-	
+	protected List<SolrBoostFieldValue> generateListBoost(SearchCriteria criteria){
+		List<SolrBoostFieldValue> boosts = dao.getAllBoosts();
+		
+		if(criteria.getCategory() != null){
+			if(!criteria.getCategory().getId().equals(2001L)){
+				boosts = boosts.stream().filter(boost -> (boost instanceof BoostCategory )).collect(Collectors.toList());
+			}
+		}
+		
+		return boosts;
+	}
 
 	
 }

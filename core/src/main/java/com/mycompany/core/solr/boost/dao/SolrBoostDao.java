@@ -20,6 +20,7 @@ public interface SolrBoostDao {
 	public List<SolrBoostFieldValue> getAllBoosts();
 	
 	public List<StProduct> getAllStProduct();
+	
 
 }
 
