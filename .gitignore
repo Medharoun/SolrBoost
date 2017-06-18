@@ -20,3 +20,4 @@ combined/solrhome
 *.error
 .DS_Store
 .vagrant
+/database.properties
